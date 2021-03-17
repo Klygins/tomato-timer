@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Header } from 'semantic-ui-react'
-import './../res/componentsCss/ClockPage.css'
+import { Button } from 'semantic-ui-react'
+import './ClockPage.css'
 
 class ClockPage extends Component {
     state = {
@@ -38,7 +38,6 @@ class ClockPage extends Component {
     resetTimer = () => {
         clearInterval(this.state.timer);
         this.setState({ timer: null, time: this.getMaxTime(this.state.isBreak), isPlaying: false })
-        console.log(this.state);
     }
 
     changeMode = () => {
@@ -46,7 +45,6 @@ class ClockPage extends Component {
         const newIsBreak = !this.state.isBreak
         this.setState({ timer: null, time: this.getMaxTime(newIsBreak), isBreak: newIsBreak, isPlaying: false })
         this.props.onModeSwitched(newIsBreak)
-        console.log(this.state);
     }
 
     render() {

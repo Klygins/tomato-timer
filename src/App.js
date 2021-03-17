@@ -1,7 +1,5 @@
 import './res/App.css';
 import React from 'react';
-// import ToggleButton from './components/toggleButton.js'
-// import HeaderWithIcon from './components/headerWithIcon'
 import ClockPage from './components/ClockPage'
 
 
