@@ -16,9 +16,9 @@ class App extends React.Component {
     const isBreakStyle = this.state.isInBreakMode ? 'rest' : 'work'
     return (
       <div className={"App " + isBreakStyle}>
-        <div className="App-header">
+        {/* <div className="App-header">
           <h1>{headerText}</h1>
-        </div>
+        </div> */}
         <div>
           <ClockPage onModeSwitched={this.onModeSwitched} />
         </div>

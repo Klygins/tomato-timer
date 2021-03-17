@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button } from 'semantic-ui-react'
+import { Button, Segment } from 'semantic-ui-react'
 import './ClockPage.css'
 
 class ClockPage extends Component {
@@ -53,15 +53,19 @@ class ClockPage extends Component {
         if (seconds < 10) seconds = "0" + seconds
         const timerText = minutes + ":" + seconds;
 
-        const startPauseButtonText = this.state.isPlaying ? 'Pause' : 'Start'
+        const startPauseButtonIcon = this.state.isPlaying ? 'pause' : 'play'
         return (
             <div className='clock-page'>
-                {/* <Header inverted color='teal' size='huge'>{timerText}</Header> */}
+                <div className="App-header">
+                    <h1>Tomato Timer</h1>
+                </div>
                 <h1>{timerText}</h1>
                 <div className="ToggleButton">
-                    <Button positive onClick={this.startOrPauseTimer}>{startPauseButtonText}</Button>
-                    <Button positive onClick={this.resetTimer}>Reset</Button>
-                    <Button positive icon='sync' onClick={this.changeMode}/>
+                    {/* <Segment.Group inverted> */}
+                        <Button inverted size='huge' icon={startPauseButtonIcon} onClick={this.startOrPauseTimer} />
+                        <Button inverted size='huge' icon='sync' onClick={this.resetTimer} />
+                        <Button inverted size='huge' icon='coffee' onClick={this.changeMode} />
+                    {/* </Segment.Group> */}
                 </div>
             </div>
         );

@@ -1,17 +1,11 @@
  .App {
-  min-height: 100vh;
-}
+   min-height: 100vh;
+ }
 
-.App-header {
-  padding: 20px;
-  text-align: center; 
-  color: #61dafb;
-}
+ .rest {
+   background-color: coral;
+ }
 
-.rest {
-  background-color: coral;
-}
-
-.work {
-  background-color: blueviolet;
-}
+ .work {
+   background-color: cornflowerblue;
+ }

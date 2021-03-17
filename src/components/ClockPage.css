@@ -13,3 +13,11 @@
     height: 90vh;
     color: white;
 }
+
+.App-header {
+    position: absolute;
+    top: 20px;
+    padding: 20px;
+    text-align: center;
+    color: #61dafb;
+}

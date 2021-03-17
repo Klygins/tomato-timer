@@ -1,7 +1,8 @@
 const electron = require('electron');
 const {
     app,
-    BrowserWindow
+    BrowserWindow,
+    Menu
 } = electron;
 
 const path = require('path');
@@ -13,10 +14,11 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 1200,
-        height: 600,
+        width: 300,
+        height: 460,
         // frame: false,
-        // resizable: false,
+        resizable: false,
+        // menuBarVisible: false,
         webPreferences: {
             backgroundThrottling: false
         }
@@ -29,12 +31,12 @@ function createWindow() {
     });
     mainWindow.loadURL(startUrl);
 
-
-    mainWindow.webContents.openDevTools();
-
     mainWindow.on('closed', function () {
         mainWindow = null
     })
+
+    const menu = Menu.buildFromTemplate([])
+    Menu.setApplicationMenu(menu)
 }
 
 app.on('ready', createWindow);
