@@ -1,27 +1,33 @@
-// import logo from './res/logo.svg';
 import './res/App.css';
+import React from 'react';
+// import ToggleButton from './components/toggleButton.js'
+// import HeaderWithIcon from './components/headerWithIcon'
+import ClockPage from './components/ClockPage'
 
-function App() {
-  return (
-    <div className="App">
-      <h1 className="App-header">Template app header</h1>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
 
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    isInBreakMode: false
+  }
+  onModeSwitched = (isBreak) => {
+    this.setState({ isInBreakMode: isBreak })
+  }
+
+  render() {
+    const headerText = "Tomato app";
+    const isBreakStyle = this.state.isInBreakMode ? 'rest' : 'work'
+    return (
+      <div className={"App " + isBreakStyle}>
+        <div className="App-header">
+          <h1>{headerText}</h1>
+        </div>
+        <div>
+          <ClockPage onModeSwitched={this.onModeSwitched} />
+        </div>
+
+      </div>
+    );
+  }
 }
 
 export default App;

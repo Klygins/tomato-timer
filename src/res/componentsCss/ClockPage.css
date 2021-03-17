@@ -1,0 +1,15 @@
+.ToggleButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 20px;
+}
+
+.clock-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    color: white;
+}

@@ -16,7 +16,7 @@ function createWindow() {
         width: 1200,
         height: 600,
         // frame: false,
-        resizable: false,
+        // resizable: false,
         webPreferences: {
             backgroundThrottling: false
         }

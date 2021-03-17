@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import './res/index.css';
 import App from './App';
 import reportWebVitals from './res/reportWebVitals';
+import "semantic-ui-css/semantic.min.css";
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <div>
     <App />
-  </React.StrictMode>,
+  </div>
+  // </React.StrictMode>
+  ,
   document.getElementById('root')
 );
 
