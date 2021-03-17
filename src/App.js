@@ -12,17 +12,10 @@ class App extends React.Component {
   }
 
   render() {
-    const headerText = "Tomato app";
     const isBreakStyle = this.state.isInBreakMode ? 'rest' : 'work'
     return (
       <div className={"App " + isBreakStyle}>
-        {/* <div className="App-header">
-          <h1>{headerText}</h1>
-        </div> */}
-        <div>
-          <ClockPage onModeSwitched={this.onModeSwitched} />
-        </div>
-
+        <ClockPage onModeSwitched={this.onModeSwitched} />
       </div>
     );
   }
