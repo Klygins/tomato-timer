@@ -15,7 +15,6 @@ function createWindow() {
     width: 300,
     height: 460,
     resizable: false,
-    title: "Meow app",
     webPreferences: {
       backgroundThrottling: false
     }
