@@ -33,6 +33,13 @@
     "build": "yarn react-build && yarn electron-build",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
+  "build": {
+    "appId": "tomato_app",
+    "mac": {
+      "category": "public.app-category.productivity"
+    }
+  },
+  "license": "SEE LICENSE IN <filename>",
   "browserslist": {
     "production": [
       ">0.2%",
