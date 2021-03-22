@@ -1,17 +1,24 @@
-### TODOs
-- [ ] Optimization
+  ### TODOs
+#### General
+- [ ] Open on startup
+- [ ] Key combinations (P=Pause, R=Restart, M=SwitchMode)
+#### Optimization
   - [ ] Make content appear faster
   - [ ] Remove 1st sec after timer is started (this second is mostly observed and lasted too long :) )
-- [ ] Structure
+#### Structure
   - [ ] Screen switcher for Settings and About
-- [ ] Settings
+#### Settings
   - [ ] (flag) Widget mode (floating on screen without frame + appears only in tray)
   - [ ] (input) Minutes count for pause
   - [ ] (flag) Start counting after mode is changed
-- [ ] UI
+  - [ ] (flag) Sound on timer completion
+  - [ ] Color picker for background
+#### UI
+  - [ ] Switch Work/Pause icon
+  - [ ] Small Button for Big Pause (30 min)
   - [ ] Progress display (maybe round or a standart bar)
   - [ ] Count today's tomatos
-- [ ] Tests
+#### Tests
   - [ ] Unit tests
   - [ ] React components tests
 
