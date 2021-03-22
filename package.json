@@ -35,7 +35,7 @@
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "build": {
-    "appId": "tomato_app",
+    "appId": "com.example.tomato-app",
     "mac": {
       "icon": "./src/icon.jpg",
       "category": "public.app-category.productivity"
