@@ -1,6 +1,6 @@
 {
   "name": "TomatoTimer",
-  "description": "",
+  "description": "Tomato timer for a brilliant time management method",
   "author": "Alexey Klygin",
   "version": "0.1.0",
   "dependencies": {
@@ -36,10 +36,11 @@
   "build": {
     "appId": "tomato_app",
     "mac": {
+      "icon": "./src/icon.jpg",
       "category": "public.app-category.productivity"
     }
   },
-  "license": "SEE LICENSE IN <filename>",
+  "license": "MIT",
   "browserslist": {
     "production": [
       ">0.2%",
