@@ -1,10 +1,10 @@
   ### TODOs
 #### General
-- [ ] Open on startup
+- [ ] Open on system startup
 - [ ] Key combinations (P=Pause, R=Restart, M=SwitchMode)
 #### Optimization
   - [ ] Make content appear faster
-  - [ ] Remove 1st sec after timer is started (this second is mostly observed and lasted too long :) )
+  - [X] Remove 1st sec after timer is started (this second is mostly observed and lasted too long :) )
 #### Structure
   - [ ] Screen switcher for Settings and About
 #### Settings
@@ -14,7 +14,8 @@
   - [ ] (flag) Sound on timer completion
   - [ ] Color picker for background
 #### UI
-  - [ ] Switch Work/Pause icon
+  - [X] Switch Work/Pause icon
+  - [X] Reset button is disabled when timer is in start position
   - [ ] Small Button for Big Pause (30 min)
   - [ ] Progress display (maybe round or a standart bar)
   - [ ] Count today's tomatos
