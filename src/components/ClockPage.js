@@ -32,7 +32,7 @@ class ClockPage extends Component {
             clearInterval(this.state.timer);
             this.setState({ timer: null, isPlaying: false })
         } else {
-            this.setState({ timer: setInterval(this.tick, 1000), isPlaying: true })
+            this.setState({ timer: setInterval(this.tick, 1000), isPlaying: true, time: this.state.time-1000 })
         }
     }
 
@@ -48,24 +48,28 @@ class ClockPage extends Component {
         this.props.onModeSwitched(newIsBreak)
     }
 
-    render() {
+    timerText = () => {
         const minutes = parseInt(this.state.time / (60 * 1000))
         var seconds = (this.state.time - minutes * 60_000) / 1000
         if (seconds < 10) seconds = "0" + seconds
-        const timerText = minutes + ":" + seconds;
-        //TODO: Add progress bar
+        return minutes + ":" + seconds;
+    }
+
+    render() {
         const startPauseButtonIcon = this.state.isPlaying ? 'pause' : 'play'
+        const isResetButtonDisabled = this.state.time === this.getMaxTime(this.state.isBreak)
+        const modeSwitcherIcon = this.state.isBreak ? 'industry' : 'coffee'
         return (
             <div className='clock-page'>
                 <div className="App-header">
                     <h1>Tomato Timer</h1>
                 </div>
-                <h1>{timerText}</h1>
+                <h1>{this.timerText()}</h1>
                 
                 <div id="main-buttons">
                     <Button circular size='huge' icon={startPauseButtonIcon} onClick={this.startOrPauseTimer} />
-                    <Button circular size='huge' icon='sync' onClick={this.resetTimer} />
-                    <Button circular size='huge' icon='coffee' onClick={this.changeMode} />
+                    <Button circular size='huge' icon='sync alternate' disabled={isResetButtonDisabled} onClick={this.resetTimer} />
+                    <Button circular size='huge' icon={modeSwitcherIcon} onClick={this.changeMode} />
                 </div>
             </div>
         );

@@ -1,5 +1,5 @@
 {
-  "name": "TomatoTimer",
+  "name": "Tomato_Timer",
   "description": "Tomato timer for a brilliant time management method",
   "author": "Alexey Klygin",
   "license": "MIT",
@@ -34,11 +34,23 @@
     "build": "yarn react-build && yarn electron-build",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
+  "icon": "./src/icon.png",
   "build": {
     "appId": "com.example.tomato-app",
+    "productName": "TomatoTimer",
+    "copyright": "Copyright © 2021 ${author}",
     "mac": {
-      "icon": "./src/icon.jpg",
+      "icon": "./src/icon.png",
       "category": "public.app-category.productivity"
+    },
+    "win": {
+      "icon": "./src/icon.png"
+    },
+    "files": [
+      "./src/*"
+    ],
+    "directories": {
+      "buildResources": "src"
     }
   },
   "browserslist": {

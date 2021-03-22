@@ -15,6 +15,8 @@ function createWindow() {
     width: 300,
     height: 460,
     resizable: false,
+    show: false,
+    icon: '../src/icon.png',
     webPreferences: {
       backgroundThrottling: false
     }
@@ -25,6 +27,7 @@ function createWindow() {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
   mainWindow.on("closed", () => (mainWindow = null));
+  mainWindow.on('ready-to-show', () => mainWindow.show() )
 
   // const menu = Menu.buildFromTemplate([])
   // Menu.setApplicationMenu(menu)
