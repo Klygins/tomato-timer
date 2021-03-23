@@ -2,6 +2,7 @@
 #### General
 - [ ] Open on system startup
 - [ ] Key combinations (P=Pause, R=Restart, M=SwitchMode)
+- [ ] System Native notifications 
 #### Optimization
   - [ ] Make content appear faster
   - [X] Remove 1st sec after timer is started (this second is mostly observed and lasted too long :) )
