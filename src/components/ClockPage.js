@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button } from 'semantic-ui-react'
-import './ClockPage.css'
 
 class ClockPage extends Component {
     state = {
@@ -20,7 +19,6 @@ class ClockPage extends Component {
         if (this.state.time > 0)
             this.setState({ time: this.state.time - 1000 })
         else {
-            // clearInterval(this.state.timer);
             this.setState({ isBreak: !this.state.isBreak, time: this.getMaxTime(!this.state.isBreak) })
             this.props.onModeSwitched(this.state.isBreak)
             alert(!this.state.isBreak ? "Lets work a bit!" : "Have a break")
@@ -32,7 +30,7 @@ class ClockPage extends Component {
             clearInterval(this.state.timer);
             this.setState({ timer: null, isPlaying: false })
         } else {
-            this.setState({ timer: setInterval(this.tick, 1000), isPlaying: true, time: this.state.time-1000 })
+            this.setState({ timer: setInterval(this.tick, 1000), isPlaying: true, time: this.state.time - 1000 })
         }
     }
 
@@ -61,11 +59,7 @@ class ClockPage extends Component {
         const modeSwitcherIcon = this.state.isBreak ? 'industry' : 'coffee'
         return (
             <div className='clock-page'>
-                <div className="App-header">
-                    <h1>Tomato Timer</h1>
-                </div>
                 <h1>{this.timerText()}</h1>
-                
                 <div id="main-buttons">
                     <Button circular size='huge' icon={startPauseButtonIcon} onClick={this.startOrPauseTimer} />
                     <Button circular size='huge' icon='sync alternate' disabled={isResetButtonDisabled} onClick={this.resetTimer} />
