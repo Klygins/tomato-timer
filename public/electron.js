@@ -28,8 +28,6 @@ function createWindow() {
   mainWindow.on("closed", () => (mainWindow = null));
   mainWindow.on('ready-to-show', () => app.focus())
 
-  // const menu = Menu.buildFromTemplate([])
-  // Menu.setApplicationMenu(menu)
   mainWindow.setMenu(null)
 
   // mainWindow.webContents.openDevTools()
