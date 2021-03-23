@@ -5,6 +5,7 @@
 - [ ] System Native notifications 
 #### Optimization
   - [ ] Make content appear faster
+  - [ ] Show some splash screen while app is loading
   - [X] Remove 1st sec after timer is started (this second is mostly observed and lasted too long :) )
 #### Structure
   - [ ] Screen switcher for Settings and About
