@@ -1,4 +1,4 @@
-  ### TODOs
+## TODOs
 #### General
 - [ ] Open on system startup
 - [ ] Key combinations (P=Pause, R=Restart, M=SwitchMode)
