@@ -36,3 +36,13 @@
 3. Run ```yarn```
 4. When completed, run ```yarn build```
 5. You will find build files in .\tomato-timer\dist
+
+## Project structure
+### Electron side
+- Main and only file for electron is a electron.js, located in ./public
+- electron.js renders index.html in the same solder
+- In HTML's file body, you can find <div id="root"></div>. This div is an entry point for a React app
+### React side
+- ./src/index.js renders ./src/App.js into the <div id="root">, stated above
+- ./src/App.js renders component called ClockPage, located in ./src/components/ClockPage.js
+- ./src/components/ClockPage.js is a Main UI, that you will see on app startup
