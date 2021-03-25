@@ -11,7 +11,7 @@ class ClockPage extends Component {
     }
 
     getMaxTime(isBreak) {
-        if (isBreak) return 7 * 60 * 1000 
+        if (isBreak) return 7 * 60 * 1000
         else return 25 * 60 * 1000
     }
 
