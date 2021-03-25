@@ -1,29 +1,5 @@
 ## TODOs
-#### General
-- [ ] Open on system startup
-- [ ] Key combinations (P=Pause, R=Restart, M=SwitchMode)
-- [ ] System Native notifications 
-#### Optimization
-  - [ ] Make content appear faster
-  - [ ] Show some splash screen while app is loading
-  - [X] Remove 1st sec after timer is started (this second is mostly observed and lasted too long :) )
-#### Structure
-  - [ ] Screen switcher for Settings and About
-#### Settings
-  - [ ] (flag) Widget mode (floating on screen without frame + appears only in tray)
-  - [ ] (input) Minutes count for pause
-  - [ ] (flag) Start counting after mode is changed
-  - [ ] (flag) Sound on timer completion
-  - [ ] Color picker for background
-#### UI
-  - [X] Switch Work/Pause icon
-  - [X] Reset button is disabled when timer is in start position
-  - [ ] Small Button for Big Pause (30 min)
-  - [ ] Progress display (maybe round or a standart bar)
-  - [ ] Count today's tomatos
-#### Tests
-  - [ ] Unit tests
-  - [ ] React components tests
+see [Project Board](https://github.com/farawayCC/tomato-timer/projects/1)
 
 ## Scripts
 1. ```yarn``` will install all modules needed.  
