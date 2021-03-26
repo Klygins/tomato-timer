@@ -12,9 +12,9 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 300,
+    width: 300 * (isDev ? 3 : 1),
     height: 460,
-    resizable: false,
+    resizable: isDev,
     icon: '../src/icon.png',
     webPreferences: {
       backgroundThrottling: false
@@ -30,7 +30,8 @@ function createWindow() {
 
   mainWindow.setMenu(null)
 
-  // mainWindow.webContents.openDevTools()
+  if (isDev)
+    mainWindow.webContents.openDevTools()
 }
 
 app.on("ready", createWindow);
