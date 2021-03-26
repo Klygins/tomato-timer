@@ -7,7 +7,6 @@ class ClockPage extends Component {
         isBreak: false,
         time: this.getMaxTime(false),
         timer: null,
-        progress: 0,
     }
 
     getMaxTime(isBreak) {
