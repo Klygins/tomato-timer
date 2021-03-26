@@ -54,20 +54,23 @@ class ClockPage extends Component {
     }
 
     calculateProgress = () => {
-        const value = 100 -
-            100 * this.state.time / this.getMaxTime(this.state.isBreak) 
-        return value
-    } 
+        return 100 - 100 * this.state.time / this.getMaxTime(this.state.isBreak)
+    }
 
     render() {
         const startPauseButtonIcon = this.state.isPlaying ? 'pause' : 'play'
         const isResetButtonDisabled = this.state.time === this.getMaxTime(this.state.isBreak)
         const modeSwitcherIcon = this.state.isBreak ? 'industry' : 'coffee'
+        const isTimerRunning = this.state.timer !== null
         return (
             <div className='clock-page'>
                 <h1>{this.timerText()}</h1>
                 <div className='progress-bar'>
-                    <Progress percent={this.calculateProgress()} inverted success />
+                    <Progress
+                        percent={this.calculateProgress()}
+                        active={isTimerRunning}
+                        indicating={isTimerRunning}
+                    />
                 </div>
                 <div id="main-buttons">
                     <Button circular size='huge' icon={startPauseButtonIcon} onClick={this.startOrPauseTimer} />
