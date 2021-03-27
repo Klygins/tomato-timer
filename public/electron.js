@@ -12,8 +12,8 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 300 * (isDev ? 3 : 1),
-    height: 460,
+    width: 380 * (isDev ? 2.5 : 1),
+    height: 500,
     resizable: isDev,
     icon: '../src/icon.png',
     webPreferences: {

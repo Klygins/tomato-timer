@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { Button, Progress } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 
 class ClockPage extends Component {
     state = {
-        isPlaying: false,
-        isBreak: false,
-        time: this.getMaxTime(false),
         timer: null,
+        time: this.getMaxTime(false),
+        isPlaying: false,
+        isBreak: false
     }
 
     getMaxTime(isBreak) {
-        if (isBreak) return 7 * 60 * 1000
+        if (isBreak) return this.props.restMins * 60 * 1000
         else return 25 * 60 * 1000
     }
 
@@ -41,7 +42,21 @@ class ClockPage extends Component {
     changeMode = () => {
         clearInterval(this.state.timer);
         const newIsBreak = !this.state.isBreak
-        this.setState({ timer: null, time: this.getMaxTime(newIsBreak), isBreak: newIsBreak, isPlaying: false })
+        var newTimer = null
+        var newTime = this.getMaxTime(newIsBreak)
+        var newIsPlaying = false
+        if (this.props.startOnModeChanged) {
+            newTimer = setInterval(this.tick, 1000)
+            newTime -= 1000
+            newIsPlaying = true
+        }
+
+        this.setState({
+            timer: newTimer,
+            time: newTime,
+            isPlaying: newIsPlaying,
+            isBreak: newIsBreak
+        })
         this.props.onModeSwitched(newIsBreak)
     }
 
@@ -81,4 +96,11 @@ class ClockPage extends Component {
     }
 }
 
-export default ClockPage
+const mapStateToProps = (state) => {
+    return { 
+        startOnModeChanged: state.startOnModeChanged,
+        restMins: state.restMins 
+    }
+}
+
+export default connect(mapStateToProps)(ClockPage)

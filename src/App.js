@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ClockPage from './components/ClockPage'
 import Settings from './components/Settings'
 import { Button } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 
 
 class App extends Component {
@@ -19,17 +20,19 @@ class App extends Component {
   }
 
   render() {
-    const backgroundStyle = this.state.isInBreakMode ? 'rest' : 'work'
+    const colorForBackground = this.state.isInBreakMode
+      ? this.props.restColor ? this.props.restColor : '#64955d'
+      : this.props.workColor ? this.props.workColor : '#6495ed'
     const headerText = this.state.currentScreen === 'timer' ? 'Tomato Timer' : 'Settings'
     const screenButtonIcon = this.state.currentScreen === 'timer' ? 'settings' : 'clock outline'
 
     return (
-      <div className={"App " + backgroundStyle}>
+      <div className="App " style={{ backgroundColor: colorForBackground }}>
         <div className="App-header">
           <h1>{headerText}</h1>
         </div>
         <div className='app-mode-button'>
-          <Button size='mini' color='blue'  onClick={this.changeScreen} icon={screenButtonIcon} />
+          <Button inverted size='mini' onClick={this.changeScreen} icon={screenButtonIcon} />
         </div>
 
         <div hidden={this.state.currentScreen === 'settings'}>
@@ -43,4 +46,12 @@ class App extends Component {
   }
 }
 
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+    restColor: state.restColor,
+    workColor: state.workColor
+  }
+}
+
+export default connect(mapStateToProps)(App)
