@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     const backgroundStyle = this.state.isInBreakMode ? 'rest' : 'work'
     const headerText = this.state.currentScreen === 'timer' ? 'Tomato Timer' : 'Settings'
-    const screenButtonIcon = this.state.currentScreen === 'timer' ? 'setting' : 'clock outline'
+    const screenButtonIcon = this.state.currentScreen === 'timer' ? 'settings' : 'clock outline'
 
     return (
       <div className={"App " + backgroundStyle}>
@@ -29,7 +29,7 @@ class App extends Component {
           <h1>{headerText}</h1>
         </div>
         <div className='app-mode-button'>
-          <Button size='mini' color='grey' inverted onClick={this.changeScreen} icon={screenButtonIcon} />
+          <Button size='mini' color='blue'  onClick={this.changeScreen} icon={screenButtonIcon} />
         </div>
 
         <div hidden={this.state.currentScreen === 'settings'}>

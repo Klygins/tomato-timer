@@ -37,6 +37,15 @@ body {
   color: white;
 }
 
+.progress-bar {
+  display: absolute;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 100px;
+  width: 80%;
+}
+
 .App-header {
   /* position: absolute; */
   top: 20px;
@@ -47,6 +56,6 @@ body {
 
 .app-mode-button {
   position: absolute;
-  top: 24px;
-  left: 5px;
+  bottom: 5px;
+  right: 5px;
 }

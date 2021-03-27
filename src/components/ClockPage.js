@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button } from 'semantic-ui-react'
+import { Button, Progress } from 'semantic-ui-react'
 
 class ClockPage extends Component {
     state = {
@@ -7,7 +7,6 @@ class ClockPage extends Component {
         isBreak: false,
         time: this.getMaxTime(false),
         timer: null,
-        progress: 0,
     }
 
     getMaxTime(isBreak) {
@@ -53,13 +52,25 @@ class ClockPage extends Component {
         return minutes + ":" + seconds;
     }
 
+    calculateProgress = () => {
+        return 100 - 100 * this.state.time / this.getMaxTime(this.state.isBreak)
+    }
+
     render() {
         const startPauseButtonIcon = this.state.isPlaying ? 'pause' : 'play'
         const isResetButtonDisabled = this.state.time === this.getMaxTime(this.state.isBreak)
         const modeSwitcherIcon = this.state.isBreak ? 'industry' : 'coffee'
+        const isTimerRunning = this.state.timer !== null
         return (
             <div className='clock-page'>
                 <h1>{this.timerText()}</h1>
+                <div className='progress-bar'>
+                    <Progress
+                        percent={this.calculateProgress()}
+                        active={isTimerRunning}
+                        indicating={isTimerRunning}
+                    />
+                </div>
                 <div id="main-buttons">
                     <Button circular size='huge' icon={startPauseButtonIcon} onClick={this.startOrPauseTimer} />
                     <Button circular size='huge' icon='sync alternate' disabled={isResetButtonDisabled} onClick={this.resetTimer} />
