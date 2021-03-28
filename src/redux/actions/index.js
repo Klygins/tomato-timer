@@ -24,3 +24,17 @@ export const setNewWorkColor = (color) => {
         payload: color
     }
 }
+
+export const setNewTitleColor = (color) => {
+    return {
+        type: 'SET_TITLE_COLOR',
+        payload: color
+    }
+}
+
+export const setNewTimerColor = (color) => {
+    return {
+        type: 'SET_TIMER_COLOR',
+        payload: color
+    }
+}

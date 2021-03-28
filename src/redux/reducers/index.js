@@ -47,12 +47,39 @@ const workColor = (state = '#6495ed', action) => {
     }
 }
 
+
+const titleColor = (state = '#61dafb', action) => {
+    switch (action.type) {
+        case 'SET_TITLE_COLOR':
+            if (action.payload[0] !== '#') action.payload = '#' + action.payload
+            if (isHexColor(action.payload))
+                return state = action.payload;
+            return state
+        default: return state
+    }
+}
+
+
+const timerColor = (state = '#ffffff', action) => {
+    switch (action.type) {
+        case 'SET_TIMER_COLOR':
+            if (action.payload[0] !== '#') action.payload = '#' + action.payload
+            if (isHexColor(action.payload))
+                return state = action.payload;
+            return state
+        default: return state
+    }
+}
+
+
 // Combining them
 const allReducers = combineReducers({
     startOnModeChanged,
     restMins,
     restColor,
-    workColor
+    workColor,
+    titleColor,
+    timerColor,
 })
 
 // Exporting reducers

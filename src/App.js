@@ -25,11 +25,10 @@ class App extends Component {
       : this.props.workColor ? this.props.workColor : '#6495ed'
     const headerText = this.state.currentScreen === 'timer' ? 'Tomato Timer' : 'Settings'
     const screenButtonIcon = this.state.currentScreen === 'timer' ? 'settings' : 'clock outline'
-
     return (
       <div className="App " style={{ backgroundColor: colorForBackground }}>
         <div className="App-header">
-          <h1>{headerText}</h1>
+          <h1 style={{color: this.props.titleColor}}>{headerText}</h1>
         </div>
         <div className='app-mode-button'>
           <Button inverted size='mini' onClick={this.changeScreen} icon={screenButtonIcon} />
@@ -50,7 +49,8 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     restColor: state.restColor,
-    workColor: state.workColor
+    workColor: state.workColor,
+    titleColor: state.titleColor
   }
 }
 

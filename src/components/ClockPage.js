@@ -83,7 +83,7 @@ class ClockPage extends Component {
         const isTimerRunning = this.state.timer !== null
         return (
             <div className='clock-page'>
-                <h1>{this.timerText()}</h1>
+                <h1 style={{color: this.props.timerColor}}>{this.timerText()}</h1>
                 <div className='progress-bar'>
                     <Progress
                         percent={this.calculateProgress()}
@@ -104,7 +104,8 @@ class ClockPage extends Component {
 const mapStateToProps = (state) => {
     return {
         startOnModeChanged: state.startOnModeChanged,
-        restMins: state.restMins
+        restMins: state.restMins,
+        timerColor: state.timerColor
     }
 }
 
