@@ -3,7 +3,7 @@
   "description": "Tomato timer for a brilliant time management method",
   "author": "Alexey Klygin",
   "license": "MIT",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": "https://github.com/farawayCC/tomato-timer.git",
   "dependencies": {
     "cross-env": "6.0.2",
