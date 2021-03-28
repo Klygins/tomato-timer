@@ -16,12 +16,17 @@ class ClockPage extends Component {
     }
 
     tick = () => {
-        if (this.state.time > 0)
+        if (this.state.time > 0) {
             this.setState({ time: this.state.time - 1000 })
-        else {
+        } else {
             this.setState({ isBreak: !this.state.isBreak, time: this.getMaxTime(!this.state.isBreak) })
             this.props.onModeSwitched(this.state.isBreak)
-            alert(!this.state.isBreak ? "Lets work a bit!" : "Have a break")
+            const notifObj = {
+                title: !this.state.isBreak ? "Lets work a bit!" : "Yoohoo!",
+                body: !this.state.isBreak ? 'please...' : 'Have a break. U deserve it'
+            }
+            window.ipcRenderer.send('notify', notifObj)
+            alert(notifObj.title)
         }
     }
 
@@ -97,9 +102,9 @@ class ClockPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-    return { 
+    return {
         startOnModeChanged: state.startOnModeChanged,
-        restMins: state.restMins 
+        restMins: state.restMins
     }
 }
 

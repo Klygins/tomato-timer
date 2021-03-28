@@ -2,7 +2,9 @@ const electron = require("electron");
 const {
   app,
   BrowserWindow,
-  Menu
+  Menu,
+  ipcMain,
+  Notification
 } = electron;
 
 const path = require("path");
@@ -17,7 +19,9 @@ function createWindow() {
     resizable: isDev,
     icon: '../src/icon.png',
     webPreferences: {
-      backgroundThrottling: false
+      backgroundThrottling: false,
+      contextIsolation: false,
+      preload: __dirname + '\\electron-preload.js'
     }
   });
   mainWindow.loadURL(
@@ -47,3 +51,15 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+
+ipcMain.on('notify', (_, arg) => {
+  sendNotification(arg.title, arg.body)
+  mainWindow.webContents.send("fromMain", 'response');
+})
+
+function sendNotification(title, body) {
+  new Notification({
+    title, body
+  }).show();
+}
