@@ -9,7 +9,7 @@ see [Project Board](https://github.com/farawayCC/tomato-timer/projects/1)
 ## Want to build on your machine?
 1. Fork or Clone or Download the code
 2. cd in the folder, containing the package.json (root folder of the app)
-3. Run ```yarn```
+3. Run ```yarn``` (install it with ```npm install --global yarn```)
 4. When completed, run ```yarn build```
 5. You will find build files in .\tomato-timer\dist
 
