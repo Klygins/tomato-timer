@@ -2,7 +2,9 @@ const electron = require("electron");
 const {
   app,
   BrowserWindow,
-  Menu
+  Menu,
+  ipcMain,
+  Notification
 } = electron;
 
 const path = require("path");
@@ -12,12 +14,14 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 300 * (isDev ? 3 : 1),
-    height: 460,
+    width: 380 * (isDev ? 2.5 : 1),
+    height: 500,
     resizable: isDev,
     icon: '../src/icon.png',
     webPreferences: {
-      backgroundThrottling: false
+      backgroundThrottling: false,
+      contextIsolation: false,
+      preload: path.join(__dirname , 'electron-preload.js')
     }
   });
   mainWindow.loadURL(
@@ -47,3 +51,16 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+
+ipcMain.on('notify', (_, arg) => {
+  sendNotification(arg.title, arg.body)
+
+  // mainWindow.webContents.send("fromMain", 'response');
+})
+
+function sendNotification(title, body) {
+  new Notification({
+    title, body
+  }).show();
+}

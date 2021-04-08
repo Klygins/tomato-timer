@@ -1,26 +1,32 @@
 import React, { Component } from 'react'
 import { Button, Progress } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 
 class ClockPage extends Component {
     state = {
-        isPlaying: false,
-        isBreak: false,
-        time: this.getMaxTime(false),
         timer: null,
+        time: this.getMaxTime(false),
+        isPlaying: false,
+        isBreak: false
     }
 
     getMaxTime(isBreak) {
-        if (isBreak) return 7 * 60 * 1000
+        if (isBreak) return this.props.restMins * 60 * 1000
         else return 25 * 60 * 1000
     }
 
     tick = () => {
-        if (this.state.time > 0)
+        if (this.state.time > 0) {
             this.setState({ time: this.state.time - 1000 })
-        else {
+        } else {
             this.setState({ isBreak: !this.state.isBreak, time: this.getMaxTime(!this.state.isBreak) })
             this.props.onModeSwitched(this.state.isBreak)
-            alert(!this.state.isBreak ? "Lets work a bit!" : "Have a break")
+            const notifObj = {
+                title: !this.state.isBreak ? "Lets work a bit!" : "Yoohoo!",
+                body: !this.state.isBreak ? 'please...' : 'Have a break. U deserve it'
+            }
+            window.ipcRenderer.send('notify', notifObj)
+            alert(notifObj.title)
         }
     }
 
@@ -41,7 +47,21 @@ class ClockPage extends Component {
     changeMode = () => {
         clearInterval(this.state.timer);
         const newIsBreak = !this.state.isBreak
-        this.setState({ timer: null, time: this.getMaxTime(newIsBreak), isBreak: newIsBreak, isPlaying: false })
+        var newTimer = null
+        var newTime = this.getMaxTime(newIsBreak)
+        var newIsPlaying = false
+        if (this.props.startOnModeChanged) {
+            newTimer = setInterval(this.tick, 1000)
+            newTime -= 1000
+            newIsPlaying = true
+        }
+
+        this.setState({
+            timer: newTimer,
+            time: newTime,
+            isPlaying: newIsPlaying,
+            isBreak: newIsBreak
+        })
         this.props.onModeSwitched(newIsBreak)
     }
 
@@ -63,7 +83,7 @@ class ClockPage extends Component {
         const isTimerRunning = this.state.timer !== null
         return (
             <div className='clock-page'>
-                <h1>{this.timerText()}</h1>
+                <h1 style={{color: this.props.timerColor}}>{this.timerText()}</h1>
                 <div className='progress-bar'>
                     <Progress
                         percent={this.calculateProgress()}
@@ -81,4 +101,12 @@ class ClockPage extends Component {
     }
 }
 
-export default ClockPage
+const mapStateToProps = (state) => {
+    return {
+        startOnModeChanged: state.startOnModeChanged,
+        restMins: state.restMins,
+        timerColor: state.timerColor
+    }
+}
+
+export default connect(mapStateToProps)(ClockPage)

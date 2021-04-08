@@ -3,7 +3,7 @@
   "description": "Tomato timer for a brilliant time management method",
   "author": "Alexey Klygin",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "repository": "https://github.com/farawayCC/tomato-timer.git",
   "dependencies": {
     "cross-env": "6.0.2",
@@ -13,6 +13,7 @@
     "react-dom": "^16.8.6",
     "react-redux": "^7.2.3",
     "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
     "update-electron-app": "^1.2.0"
