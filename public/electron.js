@@ -21,7 +21,7 @@ function createWindow() {
     webPreferences: {
       backgroundThrottling: false,
       contextIsolation: false,
-      preload: path.join(__dirname , 'electron-preload.js')
+      preload: path.join(__dirname, 'electron-preload.js')
     }
   });
   mainWindow.loadURL(
@@ -55,8 +55,6 @@ app.on("activate", () => {
 
 ipcMain.on('notify', (_, arg) => {
   sendNotification(arg.title, arg.body)
-
-  // mainWindow.webContents.send("fromMain", 'response');
 })
 
 function sendNotification(title, body) {

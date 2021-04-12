@@ -22,8 +22,8 @@ class ClockPage extends Component {
             this.setState({ isBreak: !this.state.isBreak, time: this.getMaxTime(!this.state.isBreak) })
             this.props.onModeSwitched(this.state.isBreak)
             const notifObj = {
-                title: !this.state.isBreak ? "Lets work a bit!" : "Yoohoo!",
-                body: !this.state.isBreak ? 'please...' : 'Have a break. U deserve it'
+                title: !this.state.isBreak ? "Lets work a bit!" : "Have a break. U deserve it",
+                body: !this.state.isBreak ? 'please...' : 'Yoohoo!'
             }
             window.ipcRenderer.send('notify', notifObj)
             alert(notifObj.title)
