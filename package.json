@@ -3,7 +3,7 @@
   "description": "Tomato timer for a brilliant time management method",
   "author": "Alexey Klygin",
   "license": "MIT",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "repository": "https://github.com/farawayCC/tomato-timer.git",
   "dependencies": {
     "cross-env": "6.0.2",
@@ -39,17 +39,17 @@
     "build": "yarn react-build && yarn electron-build",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
-  "icon": "./src/icon.png",
+  "icon": "./public/icon.png",
   "build": {
     "appId": "com.example.tomato-app",
     "productName": "TomatoTimer",
     "copyright": "Copyright © 2021 ${author}",
     "mac": {
-      "icon": "./src/icon.png",
+      "icon": "./public/icon.png",
       "category": "public.app-category.productivity"
     },
     "win": {
-      "icon": "./src/icon.png"
+      "icon": "./public/icon.png"
     },
     "files": [
       "./src/*"
