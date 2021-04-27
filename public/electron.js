@@ -44,7 +44,9 @@ function createWindow() {
 
   mainWindow.on('restore', function (event) {
     mainWindow.show();
-    tray.destroy();
+    setTimeout(() => {
+      tray.destroy();
+    }, 10);
   });
 
 
@@ -81,25 +83,10 @@ function sendNotification(title, body) {
 function createTray() {
   let appIconTray = new Tray(path.join(__dirname, 'images', 'tray.png'));
 
-  const contextMenu = Menu.buildFromTemplate([
-    {
-      label: 'Show', click: function () {
-        mainWindow.show();
-      }
-    },
-    {
-      label: 'Exit', click: function () {
-        app.isQuiting = true;
-        app.quit();
-      }
-    }
-  ]);
-
   appIconTray.on('click', (event) => {
     mainWindow.show();
   })
 
   appIconTray.setToolTip('Open Tomato App');
-  appIconTray.setContextMenu(contextMenu);
   return appIconTray;
 }
