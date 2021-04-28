@@ -54,6 +54,8 @@ function createWindow() {
     mainWindow.webContents.openDevTools()
 }
 
+app.setAppUserModelId("Tomato Timer")
+
 app.on("ready", createWindow);
 
 app.on("window-all-closed", () => {
