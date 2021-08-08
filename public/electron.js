@@ -16,8 +16,8 @@ let tray
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 380 * (isDev ? 2.5 : 1),
-    height: 500,
+    width: 360 * (isDev ? 2.5 : 1),
+    height: 550,
     resizable: isDev,
     icon: '../public/icon.png',
     webPreferences: {
