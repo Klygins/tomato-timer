@@ -1,37 +1,66 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Checkbox, Input, Label } from 'semantic-ui-react'
-import { connect } from 'react-redux'
-import { switchStartOnModeChange } from '../redux/actions'
-import { changeMinsToRest } from '../redux/actions'
-import { setNewRestColor } from '../redux/actions'
-import { setNewWorkColor } from '../redux/actions'
-import { setNewTitleColor } from '../redux/actions'
-import { setNewTimerColor } from '../redux/actions'
+import lsValues from '../localStorageValues'
 
+const Settings = () => {
+    const [titleColor, setTitleColor] = useState()
+    const [timerColor, setTimerColor] = useState()
+    const [workColor, setWorkColor] = useState()
+    const [restColor, setRestColor] = useState()
 
-class Settings extends Component {
+    const setNewColor = (elementName, colorValue) => {
+        localStorage.setItem(elementName, colorValue)
+    }
 
-    createColorPickers = () => {
+    useEffect(() => {
+        // Init localStorage values with default values if they are null
+        if (!localStorage.getItem(lsValues.titleColorStr))
+            localStorage.setItem(lsValues.titleColorStr, lsValues.titleColorDefaultValue)
+        if (!localStorage.getItem(lsValues.timerColorStr))
+            localStorage.setItem(lsValues.timerColorStr, lsValues.timerColorDefaultValue)
+        if (!localStorage.getItem(lsValues.workColorStr))
+            localStorage.setItem(lsValues.workColorStr, lsValues.workColorDefaultValue)
+        if (!localStorage.getItem(lsValues.restColorStr))
+            localStorage.setItem(lsValues.restColorStr, lsValues.restColorDefaultValue)
+        console.log('localStorage.getItem(lsValues.titleColor): ', localStorage.getItem(lsValues.titleColor))
+        console.log('localStorage.getItem(lsValues.titltimerColoreColor): ', localStorage.getItem(lsValues.timerColorStr))
+        console.log('localStorage.getItem(lsValues.workColorStr):', localStorage.getItem(lsValues.workColorStr))
+        console.log('localStorage.getItem(lsValues.restColorStr):', localStorage.getItem(lsValues.restColorStr))
+        setTitleColor(localStorage.getItem(lsValues.titleColorStr))
+        setTimerColor(localStorage.getItem(lsValues.timerColorStr))
+        setWorkColor(localStorage.getItem(lsValues.workColorStr))
+        setRestColor(localStorage.getItem(lsValues.restColorStr))
+        return () => {
+            console.log('Gone away from')
+            // Set new values to 
+            localStorage.setItem(lsValues.titleColorStr, titleColor)
+            localStorage.setItem(lsValues.timerColorStr, timerColor)
+            localStorage.setItem(lsValues.workColorStr, workColor)
+            localStorage.setItem(lsValues.restColorStr, restColor)
+        }
+    }, [])
+
+    const createColorPickers = () => {
         const colorPickerSettings = [
             {
                 title: 'Title color',
-                placeholder: this.props.titleColor,
-                actionSettingColor: ((colorValue) => this.props.setNewTitleColor(colorValue))
+                placeholder: titleColor,
+                actionSettingColor: ((colorValue) => setTitleColor(colorValue))
             },
             {
                 title: 'Timer color',
-                placeholder: this.props.timerColor,
-                actionSettingColor: ((colorValue) => this.props.setNewTimerColor(colorValue))
+                placeholder: localStorage.getItem(lsValues.timerColorStr),
+                actionSettingColor: ((colorValue) => setTimerColor(colorValue))
             },
             {
                 title: 'Work color',
-                placeholder: this.props.workColor,
-                actionSettingColor: ((colorValue) => this.props.setNewWorkColor(colorValue))
+                placeholder: localStorage.getItem(lsValues.workColorStr),
+                actionSettingColor: ((colorValue) => setWorkColor(colorValue))
             },
             {
                 title: 'Rest color',
-                placeholder: this.props.restColor,
-                actionSettingColor: ((colorValue) => this.props.setNewRestColor(colorValue))
+                placeholder: localStorage.getItem(lsValues.restColorStr),
+                actionSettingColor: ((colorValue) => setRestColor(colorValue))
             },
         ]
         return colorPickerSettings.map(setting => {
@@ -51,56 +80,36 @@ class Settings extends Component {
         })
     }
 
-    render() {
-        return (
-            <div className='settings-div'>
-                <div className='settings-element'>
-                    <Input
-                        labelPosition='right'
-                        type='text'
-                        placeholder={this.props.restMins}
-                        onChange={(event) => this.props.changeMinsToRest(event.target.value)}
-                    >
-                        <Label basic>Rest:</Label>
-                        <input />
-                        <Label>minutes</Label>
-                    </Input>
-                </div>
-
-                {this.createColorPickers()}
-
-                <div className='settings-element'>
-                    <Checkbox
-                        label={{ children: 'Start timer on Mode switched' }}
-                        onChange={this.props.switchStartOnModeChange}
-                        checked={this.props.startOnModeChanged}
-                    />
-                </div>
+    return (
+        <div className='settings-div'>
+            <div className='settings-element'>
+                <Input
+                    labelPosition='right'
+                    type='text'
+                    placeholder={localStorage.getItem(lsValues.restMinsStr)}
+                    onChange={(event) => localStorage.setItem(lsValues.restMinsStr, event.target.value)}
+                >
+                    <Label basic>Rest:</Label>
+                    <input />
+                    <Label>minutes</Label>
+                </Input>
             </div>
-        );
-    }
+
+            {createColorPickers()}
+
+            <div className='settings-element'>
+                <Checkbox
+                    label={{ children: 'Start timer on Mode switched' }}
+                    onChange={(e) => {
+                        localStorage.setItem('abc', !localStorage.getItem('abc'))
+                        console.log('!localStorage.getItem(abc):', !localStorage.getItem('abc'))
+                    }}
+                    checked={localStorage.getItem('abc')
+                    }
+                />
+            </div>
+        </div>
+    )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        startOnModeChanged: state.startOnModeChanged,
-        restMins: state.restMins,
-        restColor: state.restColor,
-        workColor: state.workColor,
-        titleColor: state.titleColor,
-        timerColor: state.timerColor
-    }
-}
-
-
-export default connect(
-    mapStateToProps,
-    {
-        switchStartOnModeChange,
-        changeMinsToRest,
-        setNewRestColor,
-        setNewWorkColor,
-        setNewTitleColor,
-        setNewTimerColor
-    }
-)(Settings)
+export default Settings
