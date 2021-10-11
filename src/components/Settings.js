@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { Checkbox, Input, Label } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { switchStartOnModeChange } from '../redux/actions'
-import { changeMinsToRest } from '../redux/actions'
-import { setNewRestColor } from '../redux/actions'
-import { setNewWorkColor } from '../redux/actions'
-import { setNewTitleColor } from '../redux/actions'
-import { setNewTimerColor } from '../redux/actions'
+import {
+    switchStartOnModeChange,
+    changeMinsToRest,
+    setNewRestColor,
+    setNewWorkColor,
+    setNewTitleColor,
+    setNewTimerColor
+} from '../redux/actions'
 
 
 class Settings extends Component {

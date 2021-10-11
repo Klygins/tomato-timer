@@ -18,6 +18,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 360 * (isDev ? 2.5 : 1),
     height: 550,
+    minHeight: 430,
     resizable: isDev,
     icon: '../public/icon.png',
     webPreferences: {

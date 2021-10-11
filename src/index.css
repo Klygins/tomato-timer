@@ -5,21 +5,12 @@ body {
   overflow: hidden;
 }
 
-
 .App {
   min-height: 100vh;
   width: 100%;
 }
 
-#main-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  bottom: 20px;
-}
-
-.clock-page {
+#clock-page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,13 +18,20 @@ body {
   color: white;
 }
 
-.progress-bar {
-  display: absolute;
-  justify-content: center;
-  align-items: center;
+#main-buttons {
   position: absolute;
-  bottom: 100px;
+  bottom: 1em;
+}
+
+#progress-bar {
+  position: absolute;
+  bottom: 5em;
   width: 80%;
+}
+
+#timer-text {
+  position: absolute;
+  bottom: 12em;
 }
 
 .App-header {
@@ -43,14 +41,20 @@ body {
   color: #61dafb;
 }
 
-.app-mode-button {
+#app-mode-button {
   position: absolute;
-  bottom: 5px;
-  right: 5px;
+  bottom: 1em;
+  right: 1em;
+}
+
+#projects-button {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
 }
 
 .settings-div {
-  text-align:center;  
+  text-align: center;
 }
 
 .settings-element {

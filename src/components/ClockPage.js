@@ -1,112 +1,116 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Button, Progress } from 'semantic-ui-react'
-import { connect } from 'react-redux'
 
-class ClockPage extends Component {
-    state = {
-        timer: null,
-        time: this.getMaxTime(false),
-        isPlaying: false,
-        isBreak: false
-    }
+import { useSelector } from "react-redux";
 
-    getMaxTime(isBreak) {
-        if (isBreak) return this.props.restMins * 60 * 1000
-        else return 25 * 60 * 1000
-    }
+const ClockPage = ({ onModeSwitched }) => {
+    const getMaxTime = (isBreak) =>
+        isBreak
+            ? restMins * 60 * 1000
+            : 25 * 60 * 1000
 
-    tick = () => {
-        if (this.state.time > 0) {
-            this.setState({ time: this.state.time - 1000 })
+    const [time, setTime] = useState(getMaxTime(false))
+    const [isRunnung, setIsRunning] = useState(false)
+    const [isBreak, setIsBreak] = useState(false)
+
+    const restMins = useSelector(state => state.restMins)
+    const startOnModeChanged = useSelector(state => state.startOnModeChanged)
+    const timerColor = useSelector(state => state.timerColor)
+
+
+    const tick = () => {
+        if (time > 0) {
+            setTime(time - 1000)
         } else {
-            this.setState({ isBreak: !this.state.isBreak, time: this.getMaxTime(!this.state.isBreak) })
-            this.props.onModeSwitched(this.state.isBreak)
+            setIsBreak(!isBreak)
+            setTime(getMaxTime(isBreak)) //TODO: Is it wrong???? Or should ! be added
+            onModeSwitched(isBreak)
             const notifObj = {
-                title: !this.state.isBreak ? "Lets work a bit!" : "Have a break. U deserve it",
-                body: !this.state.isBreak ? 'please...' : 'Yoohoo!'
+                title: !isBreak ? "Lets work a bit!" : "Have a break. U deserve it",
+                body: !isBreak ? 'please...' : 'Yoohoo!'
             }
             window.ipcRenderer.send('notify', notifObj)
             alert(notifObj.title)
         }
     }
 
-    startOrPauseTimer = () => {
-        if (this.state.isPlaying) {
-            clearInterval(this.state.timer);
-            this.setState({ timer: null, isPlaying: false })
-        } else {
-            this.setState({ timer: setInterval(this.tick, 1000), isPlaying: true, time: this.state.time - 1000 })
-        }
+    useInterval(tick, isRunnung ? 1000 : null)
+
+    const startOrPauseTimer = () => {
+        setIsRunning(!isRunnung)
+        setTime(time - 1000)
     }
 
-    resetTimer = () => {
-        clearInterval(this.state.timer);
-        this.setState({ timer: null, time: this.getMaxTime(this.state.isBreak), isPlaying: false })
+    const resetTimer = () => {
+        setTime(getMaxTime(isBreak))
+        setIsRunning(false)
     }
 
-    changeMode = () => {
-        clearInterval(this.state.timer);
-        const newIsBreak = !this.state.isBreak
-        var newTimer = null
-        var newTime = this.getMaxTime(newIsBreak)
-        var newIsPlaying = false
-        if (this.props.startOnModeChanged) {
-            newTimer = setInterval(this.tick, 1000)
-            newTime -= 1000
-            newIsPlaying = true
-        }
-
-        this.setState({
-            timer: newTimer,
-            time: newTime,
-            isPlaying: newIsPlaying,
-            isBreak: newIsBreak
-        })
-        this.props.onModeSwitched(newIsBreak)
+    const changeMode = () => {
+        setIsBreak(!isBreak)
+        var newTime = startOnModeChanged
+            ? getMaxTime(!isBreak)
+            : getMaxTime(!isBreak) - 1000
+        setTime(newTime)
+        setIsRunning(startOnModeChanged)
+        onModeSwitched(!isBreak)
     }
 
-    timerText = () => {
-        const minutes = parseInt(this.state.time / (60 * 1000))
-        var seconds = (this.state.time - minutes * 60_000) / 1000
+    const timerText = () => {
+        const minutes = parseInt(time / (60_000))
+        var seconds = (time - minutes * 60_000) / 1000
         if (seconds < 10) seconds = "0" + seconds
         return minutes + ":" + seconds;
     }
 
-    calculateProgress = () => {
-        return 100 - 100 * this.state.time / this.getMaxTime(this.state.isBreak)
+    const calculateProgress = () => {
+        return 100 - 100 * time / getMaxTime(isBreak)
     }
 
-    render() {
-        const startPauseButtonIcon = this.state.isPlaying ? 'pause' : 'play'
-        const isResetButtonDisabled = this.state.time === this.getMaxTime(this.state.isBreak)
-        const modeSwitcherIcon = this.state.isBreak ? 'industry' : 'coffee'
-        const isTimerRunning = this.state.timer !== null
-        return (
-            <div className='clock-page'>
-                <h1 style={{color: this.props.timerColor}}>{this.timerText()}</h1>
-                <div className='progress-bar'>
+    const startPauseButtonIcon = () => isRunnung ? 'pause' : 'play'
+    const isResetButtonDisabled = () => time === getMaxTime(isBreak)
+    const modeSwitcherIcon = () => isBreak ? 'industry' : 'coffee'
+
+    return (
+        <>
+            <div id='clock-page'>
+                <div id='timer-text'>
+                    <h1 style={{ color: timerColor }}>{timerText()}</h1>
+                </div>
+                <div id='progress-bar'>
                     <Progress
-                        percent={this.calculateProgress()}
-                        active={isTimerRunning}
-                        indicating={isTimerRunning}
+                        percent={calculateProgress()}
+                        active={isRunnung}
+                        indicating={isRunnung}
                     />
                 </div>
                 <div id="main-buttons">
-                    <Button circular size='huge' icon={startPauseButtonIcon} onClick={this.startOrPauseTimer} />
-                    <Button circular size='huge' icon='sync alternate' disabled={isResetButtonDisabled} onClick={this.resetTimer} />
-                    <Button circular size='huge' icon={modeSwitcherIcon} onClick={this.changeMode} />
+                    <Button circular size='huge' icon={startPauseButtonIcon()} onClick={startOrPauseTimer} />
+                    <Button circular size='huge' icon='sync alternate' disabled={isResetButtonDisabled()} onClick={resetTimer} />
+                    <Button circular size='huge' icon={modeSwitcherIcon()} onClick={changeMode} />
                 </div>
             </div>
-        );
-    }
+        </>
+    )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        startOnModeChanged: state.startOnModeChanged,
-        restMins: state.restMins,
-        timerColor: state.timerColor
-    }
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    useEffect(() => {
+        savedCallback.current = callback;
+    });
+
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
 }
 
-export default connect(mapStateToProps)(ClockPage)
+export default ClockPage

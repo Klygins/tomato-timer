@@ -1,57 +1,69 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import ClockPage from './components/ClockPage'
 import Settings from './components/Settings'
 import { Button } from 'semantic-ui-react'
-import { connect } from 'react-redux'
+import { useSelector } from "react-redux";
 
+const screens = {
+    timer: {
+        header: 'Tomato Timer',
+        icon: 'clock outline',
 
-class App extends Component {
-  state = {
-    isInBreakMode: false,
-    currentScreen: 'timer'
-  }
-  onModeSwitched = (isBreak) => {
-    this.setState({ isInBreakMode: isBreak })
-  }
+    },
+    settings: {
+        header: 'Settings',
+        icon: 'settings',
 
-  changeScreen = () => {
-    const newScreen = this.state.currentScreen === 'timer' ? 'settings' : 'timer'
-    this.setState({ currentScreen: newScreen })
-  }
+    },
+    projects: {
+        header: 'Projects',
+        icon: 'fighter jet',
 
-  render() {
-    const colorForBackground = this.state.isInBreakMode
-      ? this.props.restColor ? this.props.restColor : '#64955d'
-      : this.props.workColor ? this.props.workColor : '#6495ed'
-    const headerText = this.state.currentScreen === 'timer' ? 'Tomato Timer' : 'Settings'
-    const screenButtonIcon = this.state.currentScreen === 'timer' ? 'settings' : 'clock outline'
+    }
+}
+
+const App = () => {
+    const [isInBreakMode, setIsInBreakMode] = useState(false)
+    const [currentScreen, setCurrentScreen] = useState(screens.timer)
+
+    const restColor = useSelector(state => state.restColor)
+    const workColor = useSelector(state => state.workColor)
+    const titleColor = useSelector(state => state.titleColor)
+
+    const onModeSwitched = (isBreak) => setIsInBreakMode(isBreak)
+
+    const changeScreen = (newScreen) => setCurrentScreen(newScreen)
+    
+
+    const colorForBackground = () =>
+        isInBreakMode
+            ? restColor || '#64955d'
+            : workColor || '#6495ed'
+    const screenButtonIcon = () => currentScreen === screens.timer ? screens.settings.icon : screens.timer.icon
+
     return (
-      <div className="App " style={{ backgroundColor: colorForBackground }}>
-        <div className="App-header">
-          <h1 style={{color: this.props.titleColor}}>{headerText}</h1>
-        </div>
-        <div className='app-mode-button'>
-          <Button inverted size='mini' onClick={this.changeScreen} icon={screenButtonIcon} />
-        </div>
+        <div className="App " style={{ backgroundColor: colorForBackground() }}>
+            <div className="App-header">
+                <h1 style={{ color: titleColor }}>{currentScreen.header}</h1>
+            </div>
 
-        <div hidden={this.state.currentScreen === 'settings'}>
-          <ClockPage onModeSwitched={this.onModeSwitched} />
+            <div hidden={currentScreen !== screens.timer}>
+                <ClockPage onModeSwitched={onModeSwitched} />
+            </div>
+            <div hidden={currentScreen !== screens.settings}>
+                <Settings />
+            </div>
+
+            <div id='app-mode-button'>
+                <Button
+                    inverted
+                    size='mini'
+                    onClick={() => changeScreen(currentScreen === screens.timer ? screens.settings : screens.timer)}
+                    icon={screenButtonIcon()} />
+            </div>
         </div>
-        <div hidden={this.state.currentScreen === 'timer'}>
-          <Settings />
-        </div>
-      </div>
     );
-  }
 }
 
 
-const mapStateToProps = (state) => {
-  return {
-    restColor: state.restColor,
-    workColor: state.workColor,
-    titleColor: state.titleColor
-  }
-}
-
-export default connect(mapStateToProps)(App)
+export default App
